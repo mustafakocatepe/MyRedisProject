@@ -20,9 +20,13 @@ namespace RedisProject.Controllers
             _productService = productService;
         }
 
-        public IActionResult GetById()
+        public IActionResult GetById(int Type, int Id)
         {
-            _productService.GetProductById(3);
+            if(Type == 0)
+                _productService.GetProductById(Id);
+            else
+                _productService.GetcategoryById(Id);
+
             return RedirectToAction("Index");
         }
 

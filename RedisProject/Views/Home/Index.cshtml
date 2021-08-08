@@ -1,1 +1,9 @@
-﻿<a asp-controller="Home" asp-action="GetById">Urunu Getir</a>
+﻿<form asp-controller="Home" asp-action="GetById">
+    <select class="form-control" name="Type"  required>
+        <option selected disabled value="">Seçiniz</option>
+        <option value="0">Product</option>
+        <option value="1">Category</option>
+    </select>
+    <input type="number" name="Id" value="" />
+    <button>Getir</button>
+</form>

@@ -16,7 +16,7 @@ namespace Service
         {
             _redisCacheService = redisCacheService;
         }
-        //public const string ProductDetail = "Category:{0}";
+        public const string CategoryDetail = "Category:{0}";
         public const string ProductDetail = "Product:{0}";
 
         public Product GetProductById(int Id)
@@ -34,9 +34,34 @@ namespace Service
             {
                 var model = new Product()
                 {
-                    ID = 1,
+                    ID = Id,
                     Name = "Nike Ayakkabi",
                     SeriNo = "123"
+                };
+
+                _redisCacheService.Set(cacheKey, model);
+                return model;
+            }
+        }
+
+        public Category GetcategoryById(int Id)
+        {
+            //Check Redis            
+            var cacheKey = string.Format(CategoryDetail, Id);
+            var result = _redisCacheService.Get<Category>(cacheKey);
+            //-------------------------------  
+
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                var model = new Category()
+                {
+                    ID = Id,
+                    Name = "Kahve",
+                    SubCategory = "Turk Kahvesi"
                 };
 
                 _redisCacheService.Set(cacheKey, model);

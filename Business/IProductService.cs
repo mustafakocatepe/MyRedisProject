@@ -10,5 +10,6 @@ namespace Service
     public interface IProductService
     {
         Product GetProductById(int Id);
+        Category GetcategoryById(int Id);
     }
 }
