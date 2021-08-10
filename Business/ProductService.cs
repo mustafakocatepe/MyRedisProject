@@ -15,9 +15,15 @@ namespace Service
         public ProductService(IRedisCacheService redisCacheService)
         {
             _redisCacheService = redisCacheService;
+            ProductList.Add(new Product { ID = 1, Name = "Nike", SeriNo = "47528" });
+            ProductList.Add(new Product { ID = 2, Name = "Adidas", SeriNo = "65921" });
+            ProductList.Add(new Product { ID = 3, Name = "Vans", SeriNo = "84528" });
+            ProductList.Add(new Product { ID = 4, Name = "Skechers", SeriNo = "32845" });
         }
         public const string CategoryDetail = "Category:{0}";
         public const string ProductDetail = "Product:{0}";
+        List<Product> ProductList = new List<Product>();
+        //public const string ProductDetail = "Product:asd:{0}";
 
         public Product GetProductById(int Id)
         {
@@ -32,15 +38,9 @@ namespace Service
             }
             else
             {
-                var model = new Product()
-                {
-                    ID = Id,
-                    Name = "Nike Ayakkabi",
-                    SeriNo = "123"
-                };
-
-                _redisCacheService.Set(cacheKey, model);
-                return model;
+                var data = ProductList.Where(x => x.ID == Id).FirstOrDefault();
+                _redisCacheService.Set(cacheKey, data);
+                return data;
             }
         }
 
